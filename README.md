@@ -1,4 +1,4 @@
-# involuntary-squad-vue
+# involuntary
 
 ## Project setup
 ```

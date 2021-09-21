@@ -7,20 +7,24 @@
 </template>
 
 <script>
-import MainLayout from "@/layouts/MainLayout";
-import EmptyLayout from "@/layouts/EmptyLayout";
-
+import MainLayout from '@/layouts/MainLayout'
+import LoginLayout from '@/layouts/LoginLayout'
 export default {
-  components: {EmptyLayout, MainLayout},
   computed: {
     layout() {
-      return (this.$route.meta.layout || 'empty') + '-layout'
+      return (this.$route.meta.layout || 'login') + '-layout'
     }
+  },
+  components: {
+    MainLayout,
+    LoginLayout
   }
 }
 </script>
 
-<style lang="sass">
-@import '~materialize-css/dist/css/materialize.min.css';
-@import './assets/index.css';
-</style>>
+<style lang="scss">
+@import './assets/main.css';
+body {
+	font-family: 'Comfortaa', cursive;
+}
+</style>

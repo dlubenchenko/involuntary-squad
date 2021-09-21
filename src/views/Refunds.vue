@@ -1,42 +1,86 @@
 <template>
-	<div>
-		<div class="page-title">
-			<h3>Повернення</h3>
-		</div>
+  <div>
+    <div class="text-center">
+      <h2 class="mt-4">Повернення</h2>
+      <hr />
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="text-center pt-5">
+            <div
+              class="btn-group-vertical"
+              role="group"
+              aria-label="Basic example"
+            >
+              <my-button
+                v-for="(item, i) of refundButtonsBasic"
+                :key="i"
+                :item="item"
+                @buttonValue="refundHandler"
+              />
+            </div>
 
-		<div>
-
-			<!-- <div class="row">
-				<form class="col s12">
-					<div class="row">
-						<div class="input-field col s12">
-							<textarea id="textarea1" v-model="ticketValue" class="materialize-textarea"></textarea>
-							<label for="textarea1">Вставити квитки</label>
-						</div>
-					</div>
-				</form>
-			</div> -->
-
-		</div>
-	</div>
+            <div
+              v-if="choice === 'Full refund'"
+              class="btn-group-vertical mt-3"
+              role="group"
+              aria-label="Basic example"
+            >
+              <my-button
+                v-for="(item, i) of refundButtonsFull"
+                :key="i"
+                :item="item"
+                @buttonValue="refundHandler()"
+              />
+            </div>
+            <div
+              v-else-if="choice === 'Partial refund'"
+              class="btn-group-vertical mt-3"
+              role="group"
+              aria-label="Basic example"
+            >
+              <my-button
+                v-for="(item, i) of refundButtonsPartial"
+                :key="i"
+                :item="item"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-md mt-3">
+          <my-text-area :item="'для ' + choice"/>
+        </div>
+      </div>
+        <div class="row mt-5">
+          <my-button :item="'ТИЦЬ'"/>
+        </div>
+    </div>
+  </div>
 </template>
 
 <script>
-// import { wetr_1 } from '/template/wetr_1'
+import MyTextArea from "../components/UI/MyTextArea.vue";
+import MyButton from "../components/UI/MyButton.vue";
 export default {
-  name: 'refund',
+  components: { MyTextArea, MyButton },
   data: () => ({
-    ticketValue: ''
+    refundButtonsBasic: ["Full refund", "Partial refund"],
+    refundButtonsFull: ["Full refund", "Reissued involuntary", "Reissued voluntary"],
+    refundButtonsPartial: [
+      "Partial refund",
+      "Reissued involuntary",
+      "Reissued voluntary",
+    ],
+    choice: ''
   }),
-  watch: {
-    ticketValue(e) {
-      console.log(e);
+  methods: {
+    refundHandler(e) {
+      this.choice = e
     },
-
   },
-  mounted() {
-    // console.log(this.ticketValue);
-    // M.textareaAutoResize()
-  }
-}
+};
 </script>
+
+<style>
+</style>

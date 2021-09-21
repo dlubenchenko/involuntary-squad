@@ -1,0 +1,17 @@
+
+  async mounted() {
+    const spreadsheetId1 = "1CNyeVH4xuaWoGrCqSTTZAiIZy2Q9I4j76RIfNcUIvVM";
+    await fetch(
+      `https://docs.google.com/spreadsheets/d/${spreadsheetId1}/gviz/tq?tqx=out:json`
+    )
+      .then((res) => res.text())
+      .then((text) => {
+        const json = JSON.parse(text.substr(47).slice(0, -2)).table.rows;
+        console.log(this.formatGTable(json));
+      });
+  },
+  methods: {
+    formatGTable(table) {
+      return table.map(item => item.c || '').map(item => item.map((it, i) => it || '')).map(item => item.map((it, i) => it.v || ''))
+    }
+  }

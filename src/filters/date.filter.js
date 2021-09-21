@@ -1,18 +1,17 @@
 export default function dateFilter(value, format = 'date') {
-    const options = {}
+	const options = {}
 
-    if (format.includes('date')) {
-        options.day = '2-digit'
-        options.month = 'short'
-        options.year = 'numeric'
-    }
+	if (format.includes('time')) {
+		options.hour = '2-digit'
+		options.minute = '2-digit'
+		options.second = '2-digit'
+	}
 
-    if (format.includes('time')) {
-        options.hour = '2-digit'
-        options.minute = '2-digit'
-        options.second = '2-digit'
-        options.hour12 = false
-    }
+	if (format.includes('date')) {
+		options.day = '2-digit'
+		options.year = '2-digit'
+		options.month = '2-digit'
+	}
 
-    return new Intl.DateTimeFormat('en-US', options).format(new Date(value)).toUpperCase()
+	return new Intl.DateTimeFormat('ua-UA', options).format(new Date(value))
 }

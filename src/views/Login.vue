@@ -1,102 +1,56 @@
 <template>
-  <form class="card auth-card" @submit.prevent="submitHendler">
-    <div class="card-content">
-      <span class="card-title center">Involuntary squad</span>
-      <div class="input-field">
-        <input
-            id="email"
-            type="text"
-            v-model.trim="email"
-            :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
-        >
-        <label for="email">Email</label>
-        <small
-            class="helper-text invalid"
-            v-if="$v.email.$dirty && !$v.email.required"
-        >Поле Email немає бути пустим
-        </small>
-        <small
-            class="helper-text invalid"
-            v-else-if="$v.email.$dirty && !$v.email.email"
-        >Введіть коректний Emeil
-        </small>
-      </div>
-      <div class="input-field">
-        <input
-            id="password"
+  <div>
+    <form class="login-form">
+      <div class="form-login">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your email with anyone else.</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input
             type="password"
-            v-model.trim="password"
-            :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
-        >
-        <label for="password">Пароль</label>
-        <small
-            class="helper-text invalid"
-            v-if="$v.password.$dirty && !$v.password.required"
-        >Введіть пароль
-        </small>
-        <small
-            class="helper-text invalid"
-            v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >Пароль має бути не меньше {{ minLengthValue }} символів, зараз {{ password.length }}
-        </small>
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+          <small id="emailHelp" class="form-text text-muted"
+            >We'll never share your password with anyone else.</small
+          >
+        </div>
+        <div class="text-center">
+          <router-link to="/">
+            <my-button class="mt-4" @click.prevent :item="'Увійти'" />
+          </router-link>
+        </div>
       </div>
-    </div>
-    <div class="card-action">
-      <div>
-        <button
-            class="btn waves-effect waves-light auth-submit amber darken-4"
-            type="submit"
-        >
-          Увійти
-          <i class="material-icons right">send</i>
-        </button>
-        <p class="center">Для отримання доступу, писати Lubenchenko Dmytro</p>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </template>
 
 <script>
-import {email, required, minLength} from 'vuelidate/lib/validators'
-import messages from "@/utils/messages";
+import MyButton from "../components/UI/MyButton.vue";
 export default {
-  name: 'login',
-  data: () => ({
-    email: '',
-    password: '',
-    minLengthValue: ''
-  }),
-  validations: {
-    email: {email, required},
-    password: {required, minLength: minLength(6)}
-  },
-  mounted() {
-    if (messages[this.$route.query.message]) {
-      this.$message(messages[this.$route.query.message])
-    }
-
-  },
-  methods: {
-    async submitHendler() {
-      this.minLengthValue = +this.$v.password.$params.minLength.min
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-        return
-      }
-
-      const formData = {
-        email: this.email,
-        password: this.password
-      }
-      
-      try {
-        await this.$store.dispatch('login', formData)
-        this.$router.push('/')
-      } catch (e) {
-        
-      }
-
-    }
-  }
-}
+  components: { MyButton },
+};
 </script>
+
+<style>
+.form-login {
+  margin: 0 auto;
+  position: relative;
+  top: 10rem;
+  max-width: 25rem;
+  background-color: #fff;
+  padding: 2rem;
+  min-width: 10rem;
+  border: 1px solid lightgrey;
+}
+</style>

@@ -1,67 +1,52 @@
 <template>
-  <div class="app-main-layout">
-    <Navbar
-      @click="isOpen = !isOpen"
-      id="toTop"
-    />
-
-    <Sidebar v-model="isOpen"/>
-
-    <main class="app-content" :class="{full: !isOpen}">
-      <div class="app-page">
-
-        <router-view/>
-
-      </div>
+  <div>
+    <Navbar />
+    <main class="container">
+      <router-view />
     </main>
-
-    <div class="fixed-action-btn">
-      <a
-          class="btn-floating btn-large amber darken-4"
-          href="#"
-          v-scroll-to="'#toTop'"
-      >
-        <i class="large material-icons">arrow_upward</i>
+    <div>
+      <a class="to__up" href="#">
+        <svg
+          width="64px"
+          height="64px"
+          viewBox="-96 0 512 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
+          />
+        </svg>
       </a>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from "@/components/app/Navbar";
-import Sidebar from "@/components/app/Sidebar";
-import messages from "@/utils/messages";
-import firebase from "firebase/app";
-import dateFilter from "@/filters/date.filter";
+import Navbar from "@/components/Navbar";
+import MyButton from "../components/UI/MyButton.vue";
 export default {
-  name: 'main-layout',
-  computed: {
-    error() {
-      return this.$store.getters.error
-    },
+  components: {
+    Navbar,
+    MyButton,
   },
-  watch: {
-    error(fbError) {
-      console.log(fbError)
-      this.$error(messages[fbError.code] || 'Щось пішло не так')
-    }
-  },
-  data: () => ({
-    isOpen: true,
-  }),
-  async mounted() {
-    if (!Object.keys(this.$store.getters.info).length) {
-      await this.$store.dispatch('fetchInfo')
-
-      const auth = firebase.auth().currentUser.metadata.lastSignInTime
-
-      await this.$store.dispatch('createInfo', {
-        info: auth,
-        date: dateFilter(new Date(), 'datetime').toString(),
-        choice: 'last-login'
-      })
-    }
-  },
-  components: {Sidebar, Navbar}
-}
+};
 </script>
+
+<style>
+.to__up {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  border: 5px solid grey;
+  z-index: 10;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.to__up svg {
+  position: relative;
+  bottom: 14px;
+  right: 5px;
+  width: 50px;
+}
+</style>

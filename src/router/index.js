@@ -1,81 +1,74 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase/app'
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
-		path: '/login',
-		name: 'Login',
-		meta: { layout: 'empty' },
-		component: () => import('../views/Login.vue'),
-	},
-	{
 		path: '/',
-		name: 'Home',
-		meta: { layout: 'main', auth: true },
+		name: 'home',
+		meta: { layout: 'main' },
 		component: () => import('../views/Home.vue'),
 	},
 	{
-		path: '/airlines-contacts',
-		name: 'airlines-contacts',
-		meta: { layout: 'main', auth: true },
-		component: () => import('../views/AirlinesContacts.vue'),
+		path: '/parser',
+		name: 'parser',
+		meta: { layout: 'main' },
+		component: () => import('../views/Parser.vue'),
 	},
 	{
-		path: '/airlines-info',
-		name: 'airlines-info',
-		meta: { layout: 'main', auth: true },
-		component: () => import('../views/AirlinesInfo.vue'),
+		path: '/login',
+		name: 'login',
+		meta: { layout: 'login' },
+		component: () => import('../views/Login.vue'),
 	},
 	{
-		path: '/parsers',
-		name: 'parsers',
-		meta: { layout: 'main', auth: true },
-		component: () => import('../views/Parsers.vue'),
-	},
-	{
-		path: '/refunds',
-		name: 'refunds',
-		meta: { layout: 'main', auth: true, status: 'admin' },
+		path: '/refund',
+		name: 'refund',
+		meta: { layout: 'main' },
 		component: () => import('../views/Refunds.vue'),
 	},
 	{
 		path: '/reissue',
 		name: 'reissue',
-		meta: { layout: 'main', auth: true },
+		meta: { layout: 'main' },
 		component: () => import('../views/Reissue.vue'),
-	},
-	{
-		path: '/translates',
-		name: 'translates',
-		meta: { layout: 'main', auth: true },
-		component: () => import('../views/Translates.vue'),
-	},
-	{
-		path: '/profile',
-		name: 'profile',
-		meta: { layout: 'main', auth: true },
-		component: () => import('../views/Profile.vue'),
 	},
 	{
 		path: '/statistic',
 		name: 'statistic',
-		meta: { layout: 'main', auth: true, status: 'admin' },
+		meta: { layout: 'main' },
 		component: () => import('../views/Statistic.vue'),
 	},
 	{
-		path: '/details/:id',
-		name: 'details',
-		meta: { layout: 'main', auth: true },
-		component: () => import('../views/Details.vue'),
+		path: '/airlines-info',
+		name: 'airlines-info',
+		meta: { layout: 'main' },
+		component: () => import('../views/InfoAl.vue'),
+	},
+	{
+		path: '/contacts',
+		name: 'contacts',
+		meta: { layout: 'main' },
+		component: () => import('../views/Contacts.vue'),
+	},
+	{
+		path: '/translates',
+		name: 'translates',
+		meta: { layout: 'main' },
+		component: () => import('../views/Translates.vue'),
 	},
 	{
 		path: '/helper',
 		name: 'helper',
-		meta: { layout: 'main', auth: true },
+		meta: { layout: 'main' },
 		component: () => import('../views/Helper.vue'),
+	},
+	{
+		path: '/profile',
+		name: 'profile',
+		meta: { layout: 'main' },
+		component: () => import('../views/Profile.vue'),
 	},
 ]
 
@@ -83,17 +76,6 @@ const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes,
-})
-
-router.beforeEach((to, from, next) => {
-	const currentUser = firebase.auth().currentUser
-	const requireAuth = to.matched.some((record) => record.meta.auth)
-
-	if (requireAuth && !currentUser) {
-		next('/login?message=login')
-	} else {
-		next()
-	}
 })
 
 export default router
