@@ -351,43 +351,43 @@ export function docs(value) {
 	return totalString
 }
 
-export function acrParse(value) {
-	let acr = value
-		.replaceAll('¥', '/')
-		.replaceAll('\n', '')
-		.split('/')
-		.map((e) => e.trim())
+// export function acrParse(value) {
+// 	let acr = value
+// 		.replaceAll('¥', '/')
+// 		.replaceAll('\n', '')
+// 		.split('/')
+// 		.map((e) => e.trim())
 
-	let acrFop = value.split(acr[1])[2]
+// 	let acrFop = value.split(acr[1])[2]
 
-	let acrSecondFop = acrFop
-		.replaceAll('¥', '/')
-		.replaceAll('\n', '')
-		.split('/')
-		.map((e) => e.trim())
+// 	let acrSecondFop = acrFop
+// 		.replaceAll('¥', '/')
+// 		.replaceAll('\n', '')
+// 		.split('/')
+// 		.map((e) => e.trim())
 
-	let al = acr[0].split(' ')[acr[0].split(' ').length - 1]
+// 	let al = acr[0].split(' ')[acr[0].split(' ').length - 1]
 
-	let nameFop = acr
-		.filter((e) => e.includes('CA') || e.includes('CC') || e.includes('VI'))
-		.join('')
-		.replace(/\s{2,6}/gm, '')
-		.split(' ')
+// 	let nameFop = acr
+// 		.filter((e) => e.includes('CA') || e.includes('CC') || e.includes('VI'))
+// 		.join('')
+// 		.replace(/\s{2,6}/gm, '')
+// 		.split(' ')
 
-	let fair = acr[3].split(' ')[acr[3].split(' ').length - 1]
-		? acr[3].split(' ')[acr[3].split(' ').length - 1]
-		: acr[3]
+// 	let fair = acr[3].split(' ')[acr[3].split(' ').length - 1]
+// 		? acr[3].split(' ')[acr[3].split(' ').length - 1]
+// 		: acr[3]
 
-	// console.log(value)
-	// console.log(acr)
-	// console.log(al)
-	// console.log(nameFop)
-	// console.log(acrSecondFop)
-	return `ACR/${al}/${acr[1]}/${acr[2]}/${fair}/${acr[4]}/ONE/${nameFop[0]} ${
-		nameFop[1]
-	} ${nameFop[2].slice(0, 1)}/1/A/F(вставити інвойс)/(F або D))/E
-`
-}
+// 	// console.log(value)
+// 	// console.log(acr)
+// 	// console.log(al)
+// 	// console.log(nameFop)
+// 	// console.log(acrSecondFop)
+// 	return `ACR/${al}/${acr[1]}/${acr[2]}/${fair}/${acr[4]}/ONE/${nameFop[0]} ${
+// 		nameFop[1]
+// 	} ${nameFop[2].slice(0, 1)}/1/A/F(вставити інвойс)/(F або D))/E
+// `
+// }
 
 // console.log(acrParse(a))
 // console.log(acrParse(b))
