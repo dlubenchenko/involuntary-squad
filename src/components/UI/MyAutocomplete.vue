@@ -4,7 +4,7 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix">search</i>
-          <input @change="updateSelect($event)" v-model="labelValue" type="text" id="autocomplete-input" class="autocomplete" @keyup="autocomplete">
+          <input autocomplete="off" @change="updateSelect($event)" v-model="labelValue" type="text" id="autocomplete-input" class="autocomplete" @keyup="autocomplete">
           <label for="autocomplete-input">{{ label }}</label>
         </div>
       </div>
