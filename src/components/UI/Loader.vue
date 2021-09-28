@@ -7,7 +7,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  name: 'loader'
+};
 </script>
 
 <style lang="scss" scoped>

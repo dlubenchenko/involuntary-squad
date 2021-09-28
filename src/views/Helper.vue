@@ -16,9 +16,7 @@
 </template>
 
 <script>
-import MyTable from '../components/UI/MyTable.vue';
 export default {
-  components: { MyTable },
   data: () => ({
     commands: [
       {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},

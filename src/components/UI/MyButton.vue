@@ -4,6 +4,7 @@
 
 <script>
 export default {
+  name: 'my-button',
   props: ["item"],
   methods: {
       clickHandler(btn){

@@ -11,9 +11,7 @@
 </template>
 
 <script>
-import MyTable from '../components/UI/MyTable.vue';
 export default {
-  components: { MyTable },
   data: () => ({
     click: 'Open',
     unactive: [

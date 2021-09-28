@@ -11,9 +11,7 @@
 </template>
 
 <script>
-import MyTextArea from '../components/UI/MyTextArea.vue';
 export default {
-  components: { MyTextArea }
   };
 </script>
 

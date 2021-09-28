@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  name: 'my-collapse',
   props: ["options"],
 };
 </script>

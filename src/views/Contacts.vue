@@ -14,10 +14,8 @@
 </template>
 
 <script>
-import MyCollapse from '../components/UI/MyCollapse.vue'
 
 export default {
-  components: { MyCollapse },
   data: () => ({
     options: ["UA", "RU", "USA", 'DE', 'KZ'],
   }),

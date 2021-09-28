@@ -30,6 +30,7 @@
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
 export default {
+  name: 'my-table',
   components: { MyButton },
   props: ['items', 'btn'],
 };

@@ -56,10 +56,8 @@
 </template>
 
 <script>
-import MyButton from '../components/UI/MyButton.vue';
 export default {
   name: "Profile",
-  components: { MyButton },
 };
 </script>
 

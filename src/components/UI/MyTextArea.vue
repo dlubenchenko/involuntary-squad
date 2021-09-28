@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: 'my-text-area',
   props: ['item']
 };
 </script>

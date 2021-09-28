@@ -49,10 +49,7 @@
 </template>
 
 <script>
-import MyButton from "../components/UI/MyButton.vue";
-import MyTextArea from "../components/UI/MyTextArea.vue";
 export default {
-  components: { MyButton, MyTextArea },
   name: "pareser",
   data: () => ({
     parserButtons: [

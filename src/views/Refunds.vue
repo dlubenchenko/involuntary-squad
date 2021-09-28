@@ -60,10 +60,7 @@
 </template>
 
 <script>
-import MyTextArea from "../components/UI/MyTextArea.vue";
-import MyButton from "../components/UI/MyButton.vue";
 export default {
-  components: { MyTextArea, MyButton },
   data: () => ({
     refundButtonsBasic: ["Full refund", "Partial refund"],
     refundButtonsFull: ["Full refund", "Reissued involuntary", "Reissued voluntary"],
