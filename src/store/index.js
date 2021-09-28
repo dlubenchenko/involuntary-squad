@@ -5,20 +5,28 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
 	state: {},
-	mutations: {},
+	getters: {},
 	actions: {
-		fetchGoogle(dispatch, id) {
+		formatGTable({ dispatch, commit }, table) {
+			return table
+				.map((item) => item.c || '')
+				.map((item) => item.map((it, i) => it || ''))
+				.map((item) => item.map((it, i) => it.v || ''))
+		},
+
+		fetchGoogle({ dispatch, commit }, id) {
 			try {
-				const output = fetch(
+				let temp = null
+				return fetch(
 					`https://docs.google.com/spreadsheets/d/${id.value}/gviz/tq?tqx=out:json`
 				)
 					.then((res) => res.text())
 					.then((text) => {
 						const json = JSON.parse(text.substr(47).slice(0, -2))
-						console.log(json.table.rows)
-						console.log(json.table.cols)
+						// console.log(json.table.rows)
+						// console.log(json.table.cols)
+						return json
 					})
-				return output
 			} catch (e) {
 				console.log(e)
 			}

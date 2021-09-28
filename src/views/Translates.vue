@@ -6,7 +6,7 @@
     </div>
     <div class="row">
       <div class="col-lg-6 col-md mt-2">
-        <v-select :options="options"></v-select>
+        <v-select :options="reason"></v-select>
       </div>
       <div class="col-lg-6 col-md mt-2">
         <v-select :options="options"></v-select>
@@ -29,12 +29,19 @@
 <script>
 export default {
   data: () => ({
-    options: ["foo", "bar", "baz", "led", "lwo"],
+    options: [],
+    reason: []
   }),
-      mounted() {
+     async mounted() {
       const id = {value: process.env.VUE_APP_TRANSLATES}
       console.clear()
-      this.$store.dispatch('fetchGoogle', id)
+      const reason = await this.$store.dispatch('fetchGoogle', id)
+      const temp = await this.$store.dispatch('formatGTable', reason.table.rows)
+      this.reason = temp[0].filter(e => e !== '' && !e.includes('Название'))
+      temp.filter(e => e[0] !== 'Название').forEach(e => {
+        this.options.push(e[0])
+      })
+      console.log(temp)
     }
 };
 </script>
