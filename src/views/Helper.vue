@@ -18,17 +18,22 @@
 <script>
 export default {
   data: () => ({
-    commands: [
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-    ]
-  })
+      commands: [
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
+      ]
+    }),
+    mounted() {
+      const id = {value: process.env.VUE_APP_HELPER}
+      console.clear()
+      this.$store.dispatch('fetchGoogle', id)
+    }
   }
 </script>
 

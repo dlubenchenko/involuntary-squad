@@ -31,6 +31,11 @@ export default {
   data: () => ({
     options: ["foo", "bar", "baz", "led", "lwo"],
   }),
+      mounted() {
+      const id = {value: process.env.VUE_APP_TRANSLATES}
+      console.clear()
+      this.$store.dispatch('fetchGoogle', id)
+    }
 };
 </script>
 
