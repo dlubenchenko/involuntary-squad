@@ -95,8 +95,10 @@ export default {
 			this.output = ''
 		},
 		outputHandler(e) {
-			this.selected = this.parserButtons.filter(k => k.title === this.parser)[0]['func']
-			this.$store.dispatch(this.selected, this.textAreaValue).then((res) => (this.output = res))
+			if (this.textAreaValue.length > 10) {
+				this.selected = this.parserButtons.filter(k => k.title === this.parser)[0]['func']
+				this.$store.dispatch(this.selected, this.textAreaValue).then((res) => (this.output = res))
+			}
 		},
 		textAreaHandler(e) {
 			this.textAreaValue = e

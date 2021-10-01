@@ -8,7 +8,7 @@
     <div>
       <div class="home-text">
         <div class="row">
-          <div class="col-sm output">
+          <div class="col-md output">
             <h5 class="text-center">Корисні посилання</h5>
               <hr />
             <ul>
@@ -17,7 +17,7 @@
               </li>
             </ul>
           </div>
-          <div class="col-sm output">
+          <div class="col-md output">
             <h5 class="text-center">Додано на сайт</h5>
             <hr />
             <ul>
@@ -30,11 +30,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm output">
+          <div class="col-md output">
             <h5 class="text-center">Статистика</h5>
             <hr />
           </div>
-          <div class="col-sm output">
+          <div class="col-md output">
             <h5 class="text-center">Дані</h5>
             <hr />
           </div>
@@ -89,7 +89,6 @@ export default {
 
 <style>
 .home-text {
-  font-size: 0.7rem;
-  line-height: 1.2rem;
+  line-height: 1.4rem;
 }
 </style>
