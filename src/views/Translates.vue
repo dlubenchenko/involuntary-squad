@@ -13,9 +13,9 @@
 					<v-select :options="options" @input="reasone"></v-select>
 				</div>
 			</div>
-			<div class="col-lg-8 col-md-12">
+			<div class="col-lg-8 col-md-12 translate-output">
 				<p class="output text-center">
-					{{ output }}
+					{{ translateOutput() }}
 				</p>
 			</div>
 		</div>
@@ -45,24 +45,30 @@ export default {
 				this.options.push(e[0])
 			})
       this.translates = temp
-		console.log(this.translates)
+		// console.log(this.translates)
 	},
 	methods: {
 		language(e) {
-			console.log(e)
-			this.selectedLanguage = e
+			this.selectedLanguage = this.reason.indexOf(e)
 		},
 		reasone(e) {
-			console.log(e)
 			this.selectedReasone = e
 		},
     translateOutput() {
-      this.output = this.translates.filter(e => e.includes(this.selectedReasone))
-      console.log(this.output);
-      return this.output
+      if (this.selectedLanguage && this.selectedReasone) {
+        let languageNumber = this.selectedLanguage + 1
+        this.output = this.translates.filter(e => e.includes(this.selectedReasone))[0][languageNumber]
+        return this.output
+      } else {
+        return 'Оберіть мову та причину'
+      }
     }
 	},
 }
 </script>
 
-<style></style>
+<style>
+.translate-output {
+  white-space: pre-wrap;
+}
+</style>

@@ -7,7 +7,7 @@
 		<loader v-if="loading" />
 		<div v-else>
 			<div>
-				<h5 class="text-center mb-3 mt-4">Введіть назву/дві літері/код авіакомпанії</h5>
+				<h5 class="text-center mb-3 mt-4">Введіть назву/дві літери/код авіакомпанії</h5>
 				<hr class="mb-4">
 				<v-select
 					@input="selectedAlHandler"
