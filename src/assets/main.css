@@ -1,5 +1,6 @@
 .output {
-	padding: 1rem 0.5rem;
+	margin: 1rem;
+	padding: 1rem 1rem;
 	border: 1px solid grey;
 	border-radius: 0.5rem;
 	background-color: rgb(243, 243, 243);
@@ -8,4 +9,9 @@
 .sticky {
 	position: sticky;
 	top: 4rem;
+}
+
+.list {
+	list-style: none;
+	display: block;
 }

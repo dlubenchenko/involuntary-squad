@@ -1,27 +1,26 @@
 <template>
-  <div>
+  <div class="container">
     <div class="text-center">
       <h2 class="mt-4">Переклади причин</h2>
       <hr />
     </div>
     <div class="row">
-      <div class="col-lg-6 col-md mt-2">
-        <v-select :options="reason"></v-select>
+      <div class="col-lg-4 col-md-12">
+        <div class="col-12 mt-3">
+          <v-select :options="reason"></v-select>
+        </div>
+        <div class="col-12 mt-3">
+          <v-select :options="options"></v-select>
+        </div>
       </div>
-      <div class="col-lg-6 col-md mt-2">
-        <v-select :options="options"></v-select>
-      </div>
+    <div class="col-lg-8 col-md-12">
+      <p class="output text-center">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni,
+        dignissimos neque omnis perferendis nemo fugit earum libero, cum
+        alias, veniam quo beatae minima. Facilis repellendus aut saepe quas
+        iste quia.
+      </p>
     </div>
-    <div class="row mt-2">
-      <div class="col">
-        <hr />
-        <p class="output text-center mt-4">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni,
-          dignissimos neque omnis perferendis nemo fugit earum libero, cum
-          alias, veniam quo beatae minima. Facilis repellendus aut saepe quas
-          iste quia.
-        </p>
-      </div>
     </div>
   </div>
 </template>

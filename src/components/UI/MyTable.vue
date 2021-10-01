@@ -1,19 +1,26 @@
 <template>
   <div>
-    <table class="table table-hover sticky">
-      <thead class="thead-dark">
+    <table class="table table-hover">
+      <thead class="thead-dark sticky-table">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col" v-for="(item, i) of Object.keys(items[0])" :key="i">
+          <th scope="col" v-for="(item, i) of items[0]" :key="i">
             {{ item }}
           </th>
         </tr>
       </thead>
 
       <tbody>
-        <tr v-for="(val, i) of items" :key="i">
-          <th scope="row">{{ i + 1 }}</th>
-          <td v-for="(v, i) of Object.values(val)" :key="i">
+        <tr v-for="(val, i) of items.slice(1)" :key="i">
+          <td
+            class="text-center"
+            :colspan="items.length"
+            v-if="!val[1] && !val[2] && !val[3] && !val[4] && !val[5]"
+          >
+            <h5>
+              <b>{{ val[0] }}</b>
+            </h5>
+          </td>
+          <td v-else v-for="(v, i) of val" :key="i">
             <p v-if="v !== 'btn'">
               {{ v }}
             </p>
@@ -30,12 +37,16 @@
 <script>
 import MyButton from "@/components/UI/MyButton.vue";
 export default {
-  name: 'my-table',
+  name: "my-table",
   components: { MyButton },
-  props: ['items', 'btn'],
+  props: ["items", "btn"],
 };
 </script>
 
 <style>
-
+.sticky-table {
+  position: sticky;
+  top: 3.5rem;
+  pointer-events: none;
+}
 </style>

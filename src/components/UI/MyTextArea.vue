@@ -5,6 +5,8 @@
       class="form-control"
       id="exampleFormControlTextarea1"
       rows="3"
+      @change="textAreaHandler"
+      :value="value"
     ></textarea>
   </div>
 </template>
@@ -12,7 +14,14 @@
 <script>
 export default {
   name: 'my-text-area',
-  props: ['item']
+  props: ['item', 'value'],
+  data:() => ({
+  }),
+  methods: {
+    textAreaHandler(e) {
+      this.$emit('textAreaHandler', e.target.value)
+    }
+  }
 };
 </script>
 

@@ -8,8 +8,9 @@
       <div class="col-12">
         
       </div>
-      <div class="col-12">
-        <my-table :items="commands"/>
+      <div class="col-12 helper">
+        <loader v-if="loading"/>
+        <my-table v-else class="helper" :items="helperInfo"/>
       </div>
     </div>
   </div>
@@ -18,24 +19,22 @@
 <script>
 export default {
   data: () => ({
-      commands: [
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-        {'': 'Список очередей', 'AMADEUS': 'QT', 'SABRE': 'QC /', 'SIRENA': 'ОЧР', 'B2': 'QC/', 'GABRIEL': 'QT                 QTA', 'GALILEO': 'QCA'},
-      ]
+      helperInfo : null,
+      loading: true
     }),
-    mounted() {
+    async mounted() {
       const id = {value: process.env.VUE_APP_HELPER}
-      console.clear()
-      this.$store.dispatch('fetchGoogle', id)
+
+      const reason = await this.$store.dispatch('fetchGoogle', id)
+      this.helperInfo = await this.$store.dispatch('formatGTable', reason.table.rows)
+      this.helperInfo = this.helperInfo.map(e => e.slice(0, 7))
+      this.loading = false
     }
   }
 </script>
 
 <style>
+.helper {
+  font-size: .8rem;
+}
 </style>

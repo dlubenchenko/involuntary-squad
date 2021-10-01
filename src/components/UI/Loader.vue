@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="spinner-border text-warning" role="status">
+  <div class="text-center">
+    <div class="spinner-border text-secondary" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>
@@ -13,4 +13,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.spinner-border {
+  margin-top: 5rem;
+  width: 6rem;
+  height: 6rem;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="text-center">
       <h2 class="mt-4">Інформаці по авіакомпаніям</h2>
       <hr />

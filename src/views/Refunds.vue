@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="text-center">
       <h2 class="mt-4">Повернення</h2>
       <hr />
@@ -52,9 +52,7 @@
           <my-text-area :item="'для ' + choice"/>
         </div>
       </div>
-        <div class="row mt-5">
-          <my-button :item="'ТИЦЬ'"/>
-        </div>
+
     </div>
   </div>
 </template>
