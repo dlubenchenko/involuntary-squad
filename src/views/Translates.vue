@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-12 translate-output">
-				<p class="output text-center">
+				<p class="output text-center" v-if="selectedLanguage && selectedReasone">
 					{{ translateOutput() }}
 				</p>
 			</div>
@@ -45,7 +45,6 @@ export default {
 				this.options.push(e[0])
 			})
       this.translates = temp
-		// console.log(this.translates)
 	},
 	methods: {
 		language(e) {
@@ -55,9 +54,10 @@ export default {
 			this.selectedReasone = e
 		},
     translateOutput() {
-      if (this.selectedLanguage && this.selectedReasone) {
-        let languageNumber = this.selectedLanguage + 1
-        this.output = this.translates.filter(e => e.includes(this.selectedReasone))[0][languageNumber]
+      let languageNumber = this.selectedLanguage + 1
+      console.log(this.selectedLanguage);
+      this.output = this.translates.filter(e => e.includes(this.selectedReasone))[0][languageNumber]
+      if (this.selectedLanguage >= 0) {
         return this.output
       } else {
         return 'Оберіть мову та причину'
