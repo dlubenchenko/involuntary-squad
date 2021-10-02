@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-12 translate-output">
-				<p class="output text-center" v-if="selectedLanguage && selectedReasone">
+				<p class="output text-center" v-if="selectedReasone">
 					{{ translateOutput() }}
 				</p>
 			</div>
@@ -29,7 +29,6 @@ export default {
 		options: [],
 		reason: [],
     translates: null,
-		selectedLanguage: null,
     selectedReasone: null,
     output: null
 	}),
@@ -39,12 +38,14 @@ export default {
 		const reason = await this.$store.dispatch('fetchGoogle', id)
 		const temp = await this.$store.dispatch('formatGTable', reason.table.rows)
 		this.reason = temp[0].filter((e) => e !== '' && !e.includes('Название'))
+		console.log(this.reason);
 		temp
 			.filter((e) => e[0] !== 'Название')
 			.forEach((e) => {
 				this.options.push(e[0])
 			})
-      this.translates = temp
+      this.translates = temp.slice(1)
+	  console.log(this.translates);
 	},
 	methods: {
 		language(e) {
@@ -55,12 +56,15 @@ export default {
 		},
     translateOutput() {
       let languageNumber = this.selectedLanguage + 1
-      console.log(this.selectedLanguage);
-      this.output = this.translates.filter(e => e.includes(this.selectedReasone))[0][languageNumber]
-      if (this.selectedLanguage >= 0) {
+      // console.log(this.selectedLanguage);
+      this.output = this.translates.filter(e => e.includes(this.selectedReasone))[0]
+	//   console.log(this.output);
+	//   console.log(this.selectedLanguage + 1);
+	//   console.log(this.output[this.selectedLanguage + 1]);
+      if (this.output) {
         return this.output
       } else {
-        return 'Оберіть мову та причину'
+        return 'Переклад відсутній'
       }
     }
 	},
