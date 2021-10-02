@@ -24,28 +24,54 @@
 
 <script>
 export default {
-  name: 'translates',
+	name: 'translates',
 	data: () => ({
 		options: [],
+		languages: [],
 		reason: [],
-    translates: null,
-    selectedReasone: null,
-    output: null
+		translates: [],
+		selectedReasone: null,
+		output: null,
+		objLanguages: [],
 	}),
 	async mounted() {
-		const id = { value: process.env.VUE_APP_TRANSLATES }
 		console.clear()
+		const id = { value: process.env.VUE_APP_TRANSLATES }
 		const reason = await this.$store.dispatch('fetchGoogle', id)
 		const temp = await this.$store.dispatch('formatGTable', reason.table.rows)
-		this.reason = temp[0].filter((e) => e !== '' && !e.includes('Название'))
-		console.log(this.reason);
+		let tempArr = []
+
 		temp
 			.filter((e) => e[0] !== 'Название')
 			.forEach((e) => {
 				this.options.push(e[0])
 			})
-      this.translates = temp.slice(1)
-	  console.log(this.translates);
+
+		this.languages = temp[0].filter((e) => e !== '' && !e.includes('Название'))
+		temp.forEach((e) => {
+			tempArr.push(e.slice(0, 1).join(''))
+		})
+
+		this.reason = tempArr
+			.map((e) => e.replace('\n', ' '))
+			.map((e) => e.replace('\r', ''))
+			.map((e) => e.trim())
+
+		this.translates = temp.slice(1).map((e) => e.slice(1))
+
+		this.translates.map((el, i) =>
+			el.map(
+				(e, j) =>
+					(this.objLanguages[this.objLanguages.length] = {
+						id: this.objLanguages.length + 1,
+						language: this.languages[j],
+						reason: this.reason[i],
+						translate: e,
+					})
+			)
+		)
+
+		console.log(this.objLanguages)
 	},
 	methods: {
 		language(e) {
@@ -54,25 +80,24 @@ export default {
 		reasone(e) {
 			this.selectedReasone = e
 		},
-    translateOutput() {
-      let languageNumber = this.selectedLanguage + 1
-      // console.log(this.selectedLanguage);
-      this.output = this.translates.filter(e => e.includes(this.selectedReasone))[0]
-	//   console.log(this.output);
-	//   console.log(this.selectedLanguage + 1);
-	//   console.log(this.output[this.selectedLanguage + 1]);
-      if (this.output) {
-        return this.output
-      } else {
-        return 'Переклад відсутній'
-      }
-    }
+		translateOutput() {
+			this.output = this.objLanguages.filter(
+				(e) =>
+					Object.values(e).includes(this.selectedLanguage) &&
+					Object.values(e).includes(this.selectedReasone)
+			)
+			console.log(this.output)
+			// if (this.output[0].translate.length > 1) {
+			// 	return this.output[0].translate
+			// }
+			// return 'Переклад відсутній'
+		},
 	},
 }
 </script>
 
 <style>
 .translate-output {
-  white-space: pre-wrap;
+	white-space: pre-wrap;
 }
 </style>
