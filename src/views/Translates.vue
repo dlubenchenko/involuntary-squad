@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-lg-4 col-md-12">
 				<div class="col-12 mt-3">
-					<v-select :options="reason" @input="language"></v-select>
+					<v-select :options="languages" @input="language"></v-select>
 				</div>
 				<div class="col-12 mt-3">
 					<v-select :options="options" @input="reasone"></v-select>
@@ -57,7 +57,7 @@ export default {
 			.map((e) => e.replace('\r', ''))
 			.map((e) => e.trim())
 
-		this.translates = temp.slice(1).map((e) => e.slice(1))
+		this.translates = temp.slice(1).map((e) => e.slice(1)).map(e => e.slice(0, 22))
 
 		this.translates.map((el, i) =>
 			el.map(
@@ -71,11 +71,14 @@ export default {
 			)
 		)
 
+		// console.log(this.languages);
+		// console.log(this.reason);
+		// console.log(this.translates);
 		console.log(this.objLanguages)
 	},
 	methods: {
 		language(e) {
-			this.selectedLanguage = this.reason.indexOf(e)
+			this.selectedLanguage = e
 		},
 		reasone(e) {
 			this.selectedReasone = e
@@ -86,11 +89,11 @@ export default {
 					Object.values(e).includes(this.selectedLanguage) &&
 					Object.values(e).includes(this.selectedReasone)
 			)
-			console.log(this.output)
-			// if (this.output[0].translate.length > 1) {
-			// 	return this.output[0].translate
-			// }
-			// return 'Переклад відсутній'
+			console.log(this.output[0])
+			if (this.output[0].translate.length > 1) {
+				return this.output[0].translate
+			}
+			return 'Переклад відсутній'
 		},
 	},
 }
