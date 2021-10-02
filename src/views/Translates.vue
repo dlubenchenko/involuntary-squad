@@ -77,7 +77,7 @@ export default {
                 reason: this.reason[i],
                 translate: e
               })))
-              // console.log(this.objLanguages)
+              console.log(this.objLanguages)
               this.loading = false
             })
       },
