@@ -4,19 +4,33 @@
 			<h2 class="mt-4">Переклади причин</h2>
 			<hr />
 		</div>
-		<div class="row">
+    <div v-if="loading">
+      <loader/>
+    </div>
+		<div v-else class="row">
 			<div class="col-lg-4 col-md-12">
 				<div class="col-12 mt-3">
-					<v-select :options="languages" @input="language"></v-select>
+          <h6>Мова:</h6>
+					<v-select :options="languages" @input="language">
+            <template #no-options="{ search, searching, loading }">
+              Упс... немає такої мови
+            </template>
+          </v-select>
 				</div>
 				<div class="col-12 mt-3">
-					<v-select :options="options" @input="reasone"></v-select>
+          <h6>Причина:</h6>
+          <v-select :options="options" @input="reasone">
+            <template #no-options="{ search, searching, loading }">
+              Упс... немає такого перекладу
+            </template>
+          </v-select>
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-12 translate-output">
-				<p class="output text-center" v-if="selectedReasone">
+				<p class="output text-center mt-5" v-if="selectedReasone">
 					{{ translateOutput() }}
 				</p>
+        <p class="output text-center mt-5" v-else>Оберіть мову та причину</p>
 			</div>
 		</div>
 	</div>
@@ -25,14 +39,16 @@
 <script>
 export default {
 	name: 'translates',
-	data: () => ({
+  data: () => ({
 		options: [],
 		languages: [],
 		reason: [],
 		translates: [],
 		selectedReasone: null,
+    selectedLanguage: '',
 		output: null,
 		objLanguages: [],
+    loading: true,
 	}),
 	async mounted() {
 		console.clear()
@@ -52,10 +68,10 @@ export default {
 			tempArr.push(e.slice(0, 1).join(''))
 		})
 
-		this.reason = tempArr
-			.map((e) => e.replace('\n', ' '))
-			.map((e) => e.replace('\r', ''))
-			.map((e) => e.trim())
+		this.reason = tempArr.slice(1)
+			// .map((e) => e.replace('\n', ' '))
+			// .map((e) => e.replace('\r', ''))
+			// .map((e) => e.trim())
 
 		this.translates = temp.slice(1).map((e) => e.slice(1)).map(e => e.slice(0, 22))
 
@@ -64,17 +80,19 @@ export default {
 				(e, j) =>
 					(this.objLanguages[this.objLanguages.length] = {
 						id: this.objLanguages.length + 1,
-						language: this.languages[j],
+						language: this.languages[j].trim(),
 						reason: this.reason[i],
 						translate: e,
 					})
 			)
 		)
 
+    this.loading = false
+
 		// console.log(this.languages);
 		// console.log(this.reason);
 		// console.log(this.translates);
-		console.log(this.objLanguages)
+		// console.log(this.objLanguages)
 	},
 	methods: {
 		language(e) {
@@ -82,18 +100,22 @@ export default {
 		},
 		reasone(e) {
 			this.selectedReasone = e
-		},
+    },
 		translateOutput() {
-			this.output = this.objLanguages.filter(
-				(e) =>
-					Object.values(e).includes(this.selectedLanguage) &&
-					Object.values(e).includes(this.selectedReasone)
-			)
-			console.log(this.output[0])
-			if (this.output[0].translate.length > 1) {
-				return this.output[0].translate
-			}
-			return 'Переклад відсутній'
+      if (this.selectedLanguage && this.selectedReasone) {
+        let temp = this.objLanguages.filter(
+            (e) =>
+                Object.values(e).includes(this.selectedReasone) &&
+                Object.values(e).includes(this.selectedLanguage)
+        )
+        this.output = temp
+        if (temp[0].translate.length > 1) {
+          return temp[0].translate.replaceAll('\r', ' ').trim()
+        }
+        return 'Переклад відсутній'
+      } else {
+        return 'Оберіть мову та причину'
+      }
 		},
 	},
 }
