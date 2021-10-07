@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn btn-secondary width" @click='clickHandler'>{{ item }}</button>
+  <button type="submit" class="btn btn-secondary width" @click.prevent='clickHandler'>{{ item }}</button>
 </template>
 
 <script>

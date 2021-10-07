@@ -13,7 +13,11 @@
 					@input="selectedAlHandler"
 					class="contacts-output"
 					:options="selectedAlHeader"
-				></v-select>
+				>
+          <template #no-options="{ search }">
+            Упс... авіакомпанія {{ search }} відсутня
+          </template>
+        </v-select>
 			</div>
 			<div class="mt-4" v-if="outputAl.length">
 				<my-collapse class="contacts-output" :options="outputAl" />
@@ -23,6 +27,8 @@
 </template>
 
 <script>
+import dateFilter from "@/filters/date.filter";
+
 export default {
 	data: () => ({
 		options: [
@@ -51,7 +57,6 @@ export default {
 	}),
 	async mounted() {
 		const id = { value: process.env.VUE_APP_CONTACTS }
-		console.clear()
 
 		const reason = await this.$store.dispatch('fetchGoogle', id)
 
@@ -65,23 +70,36 @@ export default {
 		this.loading = false
 	},
 	methods: {
-		selectedAlHandler(e) {
-			if (e) {
-				this.selectedAl = e.split('/')
-				let temp = this.alContacts.filter(
-					(e) =>
-						e[0].trim() === this.selectedAl[0].trim() ||
-						(e[2].trim() === this.selectedAl[2].trim() &&
-							e[1].trim() === this.selectedAl[1].trim())
-				)
-				let temp1 = []
-				for (let i = 0; i < temp[0].length / 3; i++) {
-					temp1[i] = temp[0].slice(i * 3, i * 3 + 3)
-				}
-				let temp2 = temp1.slice(1)
-				temp2.forEach((e, i) => e.unshift(this.options[i]))
-				this.outputAl = temp2.filter(e => e.slice(1).join('') !== '')
-			}
+		async selectedAlHandler(e) {
+      try {
+        if (e) {
+          this.selectedAl = e.split('/')
+          let temp = this.alContacts.filter(
+              (e) =>
+                  e[0].trim() === this.selectedAl[0].trim() ||
+                  (e[2].trim() === this.selectedAl[2].trim() &&
+                      e[1].trim() === this.selectedAl[1].trim())
+          )
+          let temp1 = []
+          for (let i = 0; i < temp[0].length / 3; i++) {
+            temp1[i] = temp[0].slice(i * 3, i * 3 + 3)
+          }
+          let temp2 = temp1.slice(1)
+          temp2.forEach((e, i) => e.unshift(this.options[i]))
+          this.outputAl = temp2.filter(e => e.slice(1).join('') !== '')
+        }
+        let contactsInfo = {
+          agent: this.$store.getters.info.name,
+          type: 'Contacts',
+          status: e ? 'OK' : 'ERROR',
+          date: dateFilter(new Date, 'datetime').toString(),
+          input: e,
+          output: this.outputAl
+        }
+        await this.$store.dispatch('createOutput', contactsInfo)
+      } catch (e) {
+
+      }
 		},
 	},
 }

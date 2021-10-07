@@ -19,7 +19,7 @@
 				</div>
 				<div class="col-12 mt-3">
           <h6>Причина:</h6>
-          <v-select :options="options" @input="reasone">
+          <v-select :options="options" @input="reasonHandler">
             <template #no-options="{ search, searching, loading }">
               Упс... немає такого перекладу
             </template>
@@ -27,16 +27,15 @@
 				</div>
 			</div>
 			<div class="col-lg-8 col-md-12 translate-output">
-				<p class="output text-center mt-5" v-if="selectedReasone">
-					{{ translateOutput() }}
-				</p>
-        <p class="output text-center mt-5" v-else>Оберіть мову та причину</p>
+				<p class="output text-center mt-5">{{ translateOutput }}</p>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
+import dateFilter from "@/filters/date.filter";
+
 export default {
 	name: 'translates',
   data: () => ({
@@ -44,7 +43,7 @@ export default {
 		languages: [],
 		reason: [],
 		translates: [],
-		selectedReasone: null,
+		selectedReason: null,
     selectedLanguage: '',
 		output: null,
 		objLanguages: [],
@@ -69,9 +68,6 @@ export default {
 		})
 
 		this.reason = tempArr.slice(1)
-			// .map((e) => e.replace('\n', ' '))
-			// .map((e) => e.replace('\r', ''))
-			// .map((e) => e.trim())
 
 		this.translates = temp.slice(1).map((e) => e.slice(1)).map(e => e.slice(0, 22))
 
@@ -86,38 +82,46 @@ export default {
 					})
 			)
 		)
-
     this.loading = false
-
-		// console.log(this.languages);
-		// console.log(this.reason);
-		// console.log(this.translates);
-		// console.log(this.objLanguages)
 	},
 	methods: {
 		language(e) {
 			this.selectedLanguage = e
 		},
-		reasone(e) {
-			this.selectedReasone = e
+		reasonHandler(e) {
+			this.selectedReason = e
     },
-		translateOutput() {
-      if (this.selectedLanguage && this.selectedReasone) {
-        let temp = this.objLanguages.filter(
-            (e) =>
-                Object.values(e).includes(this.selectedReasone) &&
-                Object.values(e).includes(this.selectedLanguage)
-        )
-        this.output = temp
-        if (temp[0].translate.length > 1) {
-          return temp[0].translate.replaceAll('\r', ' ').trim()
-        }
-        return 'Переклад відсутній'
-      } else {
-        return 'Оберіть мову та причину'
-      }
-		},
+    async outputHandler(info) {
+      await this.$store.dispatch('createOutput', info)
+    }
 	},
+  computed: {
+    translateOutput() {
+        if (this.selectedLanguage && this.selectedReason) {
+          this.output = this.objLanguages.filter(
+              (e) =>
+                  Object.values(e).includes(this.selectedReason) &&
+                  Object.values(e).includes(this.selectedLanguage)
+          )
+          let translateInfo = {
+            agent: this.$store.getters.info.name,
+            type: 'Translates',
+            status: this.output ? 'OK' : 'ERROR',
+            date: dateFilter(new Date, 'datetime').toString(),
+            input: `${this.output[0].language}: ${this.output[0].reason}`,
+            output: this.output
+          }
+          this.outputHandler(translateInfo)
+          if (this.output[0].translate.length > 1) {
+            return this.output[0].translate.replaceAll('\r', ' ').trim()
+          } else {
+            return 'Переклад відсутній'
+          }
+        } else {
+          return 'Оберіть мову та причину'
+        }
+    },
+  }
 }
 </script>
 

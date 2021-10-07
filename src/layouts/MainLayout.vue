@@ -1,16 +1,17 @@
 <template>
   <div>
     <Navbar />
-    <main class="container-fluid">
+    <main class="container-fluid" id="totop">
       <router-view />
     </main>
     <div>
-      <a class="to__up" href="#">
+      <a class="to__up" href="#" v-scroll-to="'#totop'">
         <svg
           width="64px"
           height="64px"
           viewBox="-96 0 512 512"
           xmlns="http://www.w3.org/2000/svg"
+
         >
           <path
             d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"
@@ -23,12 +24,26 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-import MyButton from "../components/UI/MyButton.vue";
+import firebase from "firebase/app";
+import dateFilter from "@/filters/date.filter";
+
 export default {
   components: {
     Navbar,
-    MyButton,
   },
+  async mounted() {
+    if (!Object.keys(this.$store.getters.info).length) {
+      await this.$store.dispatch('fetchCurrentUserInfo')
+
+      const auth = firebase.auth().currentUser.metadata.lastSignInTime
+      await this.$store.dispatch('createInfo', {
+        info: auth,
+        date: dateFilter(new Date(), 'datetime').toString(),
+        choice: 'Last-login'
+      })
+
+    }
+  }
 };
 </script>
 

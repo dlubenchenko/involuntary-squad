@@ -1,73 +1,74 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import firebase from "firebase/app";
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
 		path: '/',
-		name: 'home',
-		meta: { layout: 'main' },
+		name: 'Home',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Home.vue'),
 	},
 	{
 		path: '/parser',
-		name: 'parser',
-		meta: { layout: 'main' },
+		name: 'Parser',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Parser.vue'),
 	},
 	{
 		path: '/login',
-		name: 'login',
+		name: 'Login',
 		meta: { layout: 'login' },
 		component: () => import('../views/Login.vue'),
 	},
 	{
 		path: '/refund',
-		name: 'refund',
-		meta: { layout: 'main' },
+		name: 'Refund',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Refunds.vue'),
 	},
 	{
 		path: '/reissue',
-		name: 'reissue',
-		meta: { layout: 'main' },
+		name: 'Reissue',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Reissue.vue'),
 	},
 	{
 		path: '/statistic',
-		name: 'statistic',
-		meta: { layout: 'main' },
+		name: 'Statistic',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Statistic.vue'),
 	},
 	{
 		path: '/airlines-info',
-		name: 'airlines-info',
-		meta: { layout: 'main' },
+		name: 'Airlines-info',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/InfoAl.vue'),
 	},
 	{
 		path: '/contacts',
-		name: 'contacts',
-		meta: { layout: 'main' },
+		name: 'Contacts',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Contacts.vue'),
 	},
 	{
 		path: '/translates',
-		name: 'translates',
-		meta: { layout: 'main' },
+		name: 'Translates',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Translates.vue'),
 	},
 	{
 		path: '/helper',
-		name: 'helper',
-		meta: { layout: 'main' },
+		name: 'Helper',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Helper.vue'),
 	},
 	{
 		path: '/profile',
-		name: 'profile',
-		meta: { layout: 'main' },
+		name: 'Profile',
+		meta: { layout: 'main', auth: true },
 		component: () => import('../views/Profile.vue'),
 	},
 ]
@@ -76,6 +77,18 @@ const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes,
+})
+
+router.beforeEach((to, from, next) => {
+	const currentUser = firebase.auth().currentUser
+	const requireAuth = to.matched.some(record => record.meta.auth)
+
+	if (requireAuth && !currentUser) {
+		next('/login?message=login')
+	} else {
+		document.title = `INVOL SQUAD | ${to.name}`
+		next()
+	}
 })
 
 export default router

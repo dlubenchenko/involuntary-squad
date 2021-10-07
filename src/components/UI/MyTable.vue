@@ -46,7 +46,7 @@ export default {
 <style>
 .sticky-table {
   position: sticky;
-  top: 3.5rem;
+  top: 3.4rem;
   pointer-events: none;
 }
 </style>

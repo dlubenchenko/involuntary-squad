@@ -6,9 +6,9 @@
 		</div>
 		<main class="container">
 			<div class="row">
-				<div class="col-xl-3 text-center pt-5">
+				<div class="col-lg-3 text-center pt-5">
 					<div
-						class="btn-group-vertical col-xl-9 col-sm-8"
+						class="btn-group-vertical col-xl-9"
 						role="group"
 						aria-label="Basic example"
 					>
@@ -21,7 +21,7 @@
 						/>
 					</div>
 				</div>
-				<div class="col-xl" v-if="parser">
+				<div class="col-lg" v-if="parser">
 					<form>
 						<div class="form-group mt-5">
 							<my-text-area :item="parser" :value="textAreaValue" @textAreaHandler="textAreaHandler"/>
@@ -49,21 +49,7 @@
 </template>
 
 <script>
-import {
-	skyUp,
-	pq1,
-	pq2,
-	tui2,
-	s7_1,
-	s7_2,
-	s7_3,
-	docs1,
-	docs4,
-	flyarystan1,
-	flyarystan2,
-	gh,
-	kiwi1,
-} from '@/temporary/parser2'
+import dateFilter from "@/filters/date.filter";
 export default {
 	name: 'pareser',
 	data: () => ({
@@ -75,7 +61,7 @@ export default {
 			{ title: 'SkyUp', func: 'skyUp' },
 			{ title: 'TUI', func: 'tui' },
 			{ title: 'DOCS', func: 'docs' },
-			{ title: 'ACR', func: 'acrParse' },
+			// { title: 'ACR', func: 'acrParse' },
 		],
 		confirmButton: 'ТИЦЬ',
 		parser: '',
@@ -90,16 +76,28 @@ export default {
 				this.parser = e
 				this.textAreaValue = ''
 			} else {
-				this.outputHandler(e)
+				this.outputHandler()
 			}
 			this.output = ''
 		},
-		outputHandler(e) {
-			if (this.textAreaValue.length > 10) {
-				this.selected = this.parserButtons.filter(k => k.title === this.parser)[0]['func']
-				this.$store.dispatch(this.selected, this.textAreaValue).then((res) => (this.output = res))
-			}
-		},
+		async outputHandler() {
+      try {
+        if (this.textAreaValue.length > 10) {
+          this.selected = this.parserButtons.filter(k => k.title === this.parser)[0]['func']
+          this.output = await this.$store.dispatch(this.selected, this.textAreaValue) + dateFilter(new Date, 'datetime').toString()
+          let parserInfo = {
+            agent: this.$store.getters.info.name,
+            type: 'Parser',
+            status: !this.output.toString().includes('Некоректний вибір') ? 'OK' : 'ERROR',
+            date: dateFilter(new Date, 'datetime').toString(),
+            input: this.textAreaValue,
+            output: this.output
+          }
+          await this.$store.dispatch('createOutput', parserInfo)
+        }
+      } catch (e) {}
+
+    },
 		textAreaHandler(e) {
 			this.textAreaValue = e
 		}

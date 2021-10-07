@@ -169,7 +169,7 @@ export default {
 					// console.log(date)
 					return `${info[1]} ${date[2]}${date[1].toUpperCase()}${date[3].slice(
 						2
-					)} ${info[0][1]}${info[0][2]} ${info[0][3]} ${info[0][4]}\n`
+					)} ${info[0][1]}${info[0][2]} ${info[0][3]} ${info[0][4]}</br>`
 				} else {
 					let skyUpAll = value.trim().split(/\n/gi)
 					// console.log(skyUpAll)

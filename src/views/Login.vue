@@ -1,42 +1,75 @@
 <template>
   <div>
-    <form class="login-form">
+    <form class="login-form" @submit.prevent="submitHandler">
       <div class="form-login">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
+          <label for="exampleInputEmail1">Електронна адреса</label>
           <input
             type="email"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            v-model.trim="email"
           />
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your email with anyone else.</small
+          <small class="form-text text-muted"
+            >Введіть електронну пошту</small
           >
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
+          <label for="exampleInputPassword1">Пароль</label>
           <input
             type="password"
             class="form-control"
             id="exampleInputPassword1"
+            v-model="password"
           />
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your password with anyone else.</small
-          >
+          <small class="form-text text-muted">
+            Введіть пароль.
+          </small>
+
         </div>
         <div class="text-center">
-          <router-link to="/">
-            <my-button class="mt-4" @click.prevent :item="'Увійти'" />
-          </router-link>
+          <button type="submit" class="btn btn-secondary width">Увійти</button>
         </div>
       </div>
     </form>
+
+    <toast @showToast="showToast"/>
   </div>
 </template>
 
 <script>
+import { email, required, minLength } from 'vuelidate/lib/validators'
 export default {
+  data: () => ({
+    password: '',
+    email: ''
+  }),
+  validations: {
+    email: { email, required },
+    password: { required, minLength: minLength(6) }
+  },
+  methods: {
+    async submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
+      }
+      const formData = {
+        email: this.email,
+        password: this.password
+      }
+      try {
+        await this.$store.dispatch('login', formData)
+        this.$router.push('/')
+      } catch (e) {
+        throw e
+      }
+    },
+    showToast(e) {
+      console.log(e)
+    }
+  }
 };
 </script>
 

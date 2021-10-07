@@ -34,10 +34,12 @@
           <div class="col-md output">
             <h5 class="text-center">Статистика</h5>
             <hr />
+            <p>Скоро буде реалізовано...</p>
           </div>
           <div class="col-md output">
             <h5 class="text-center">Дані</h5>
             <hr />
+            <p>Скоро буде реалізовано...</p>
           </div>
         </div>
       </div>
@@ -46,9 +48,11 @@
 </template>
 
 <script>
+
 export default {
   name: "Home",
   data: () => ({
+    show: 'false',
     contacts: [
       { title: "Адмінка", url: "https://bos.ticketstravelnetwork.com/#" },
       {
@@ -85,6 +89,11 @@ export default {
       },
     ],
   }),
+  methods: {
+    showToast() {
+      this.show = 'show'
+    }
+  }
 };
 </script>
 

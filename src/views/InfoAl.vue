@@ -14,25 +14,16 @@
 export default {
   data: () => ({
     click: 'Open',
-    unactive: [
-      {Locator: 'UEQPXC', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'CJELLP', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'FQRVSZ', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'SBILBJ', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-      {Locator: 'JTLAST', GDS: 'sabre', 'Flight Date': '17SEP21', 'Issue Office': '77RI', "Letter Number": '770170', Comment: 'Тикет ‭#728678‬ создан', 'Edit': 'btn'},
-    ],
-  })
+    unactive: [['AK', 'Reissue', 'Refund'], ['AF', 'btn', 'btn'], ['DL', 'btn', 'btn'], ['KL', 'btn', 'btn'], ['PS', 'btn', 'btn']],
+  }),
+  async mounted() {
+    console.clear()
+    const id = { value: process.env.VUE_APP_ALINFO }
+    const reason = await this.$store.dispatch('fetchGoogle', id)
+    const temp = await this.$store.dispatch('formatGTable', reason.table.rows)
+    // console.log(temp)
+
+  }
 };
 </script>
 

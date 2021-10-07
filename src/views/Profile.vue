@@ -16,7 +16,7 @@
                   class="form-control"
                   id="formGroupExampleInput"
                   placeholder="Введіть ім'я"
-                  value="Лубенченко Дмитро"
+                  v-model="name"
                 />
               </div>
               <div class="form-check">
@@ -46,7 +46,7 @@
                 </label>
               </div>
             </div>
-            <my-button :item="'Оновити'"/>
+            <my-button :item="'Оновити'" @buttonValue="updateInfo"/>
           </form>
         </div>
         <div class="col-md-6 text-center">Profile photo</div>
@@ -56,8 +56,30 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "Profile",
+  data: () => ({
+    name: '',
+  }),
+  mounted() {
+    this.name = this.info.name
+  },
+  computed: {
+    ...mapGetters(['info'])
+  },
+  methods: {
+    ...mapActions(['currentUserInfo']),
+    async updateInfo() {
+      try {
+        await this.currentUserInfo({
+          name: this.name
+        })
+      } catch (e) {
+
+      }
+    }
+  }
 };
 </script>
 

@@ -1,14 +1,29 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import parser from '@/store/parser'
+import auth from '@/store/auth'
+import info from '@/store/info'
+import output from '@/store/output'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	state: {},
-	getters: {},
+	state: {
+		error: null,
+	},
+	mutations: {
+		setError(state, error) {
+			state.error = error
+		},
+		clearError(state) {
+			state.error = null
+		}
+	},
+	getters: {
+		error: s => s.error
+	},
 	actions: {
-		formatGTable({ dispatch, commit }, table) {
+		formatGTable({ dispatch, commit}, table) {
 			return table
 				.map((item) => item.c || '')
 				.map((item) => item.map((it, i) => it || ''))
@@ -23,10 +38,8 @@ export default new Vuex.Store({
 				)
 					.then((res) => res.text())
 					.then((text) => {
-						const json = JSON.parse(text.substr(47).slice(0, -2))
-						// console.log(json.table.rows)
-						// console.log(json.table.cols)
-						return json
+						const response = JSON.parse(text.substr(47).slice(0, -2))
+						return response
 					})
 			} catch (e) {
 				console.log(e)
@@ -34,6 +47,6 @@ export default new Vuex.Store({
 		},
 	},
 	modules: {
-		parser,
+		parser, auth, info, output
 	},
 })
