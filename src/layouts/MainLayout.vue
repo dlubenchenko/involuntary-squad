@@ -37,7 +37,6 @@ export default {
 
       const auth = firebase.auth().currentUser.metadata.lastSignInTime
       await this.$store.dispatch('createInfo', {
-        info: auth,
         date: dateFilter(new Date(), 'datetime').toString(),
         choice: 'Last-login'
       })

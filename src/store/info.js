@@ -47,14 +47,14 @@ export default {
                 throw e
             }
         },
-        async createInfo({commit, dispatch}, {info, date, choice}) {
+        async createInfo({commit, dispatch}, {date, choice}) {
             try {
                 const currentUser = firebase.auth().currentUser.email.replaceAll('@', '_').replaceAll('.', '_')
                 const infoAll = await firebase
                     .database()
                     .ref(`/users/${currentUser}/info/${choice}`)
-                    .push({temp: info, date})
-                return {info, date, id: infoAll.key}
+                    .push({date})
+                return {date, id: infoAll.key}
             } catch (e) {
                 commit('setError', e)
                 throw e

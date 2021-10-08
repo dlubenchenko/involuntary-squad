@@ -49,7 +49,10 @@
             <my-button :item="'Оновити'" @buttonValue="updateInfo"/>
           </form>
         </div>
-        <div class="col-md-6 text-center">Profile photo</div>
+        <div class="col-md-6 text-center">
+          <h6>Profile photo</h6>
+          <img :src="img" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -57,13 +60,18 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import firebase from "firebase/app";
 export default {
   name: "Profile",
   data: () => ({
     name: '',
+    img: null,
   }),
   mounted() {
     this.name = this.info.name
+    firebase.storage().ref('/1.jpg').getDownloadURL().then(imgUrl => {
+      this.img = imgUrl
+    })
   },
   computed: {
     ...mapGetters(['info'])
@@ -78,10 +86,18 @@ export default {
       } catch (e) {
 
       }
+    },
+    image() {
+      return
     }
   }
 };
 </script>
 
 <style>
+img {
+  width: 20rem;
+  /*height: 20rem;*/
+  border-radius: 50%;
+}
 </style>

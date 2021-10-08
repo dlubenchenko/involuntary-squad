@@ -13,6 +13,7 @@ import Vuelidate from 'vuelidate'
 import firebase from "firebase/app";
 import 'firebase/auth'
 import 'firebase/database'
+import 'firebase/storage';
 
 
 Vue.component('v-select', vSelect)
@@ -25,7 +26,7 @@ components.forEach((component) => {
 
 Vue.config.productionTip = false
 
-firebase.initializeApp({
+let customApp = firebase.initializeApp({
 	apiKey: process.env.VUE_APP_FIREBASE,
 	authDomain: "involuntary-squad.firebaseapp.com",
 	databaseURL: "https://involuntary-squad-default-rtdb.firebaseio.com",
@@ -46,5 +47,3 @@ firebase.auth().onAuthStateChanged(() => {
 		}).$mount('#app')
 	}
 })
-
-
