@@ -39,7 +39,7 @@ export default {
   data: () => ({
     menuItems: [
       { id: 1, title: "Парсер", url: "/parser" },
-      // { id: 2, title: "Повернення", url: "/refund" },
+      { id: 2, title: "Повернення", url: "/refund" },
       // { id: 3, title: "Переоформлення", url: "/reissue" },
       { id: 4, title: "Контакти", url: "/contacts" },
       { id: 5, title: "Переклади", url: "/translates" },
