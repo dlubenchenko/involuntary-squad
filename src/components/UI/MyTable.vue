@@ -49,4 +49,7 @@ export default {
   top: 3.4rem;
   pointer-events: none;
 }
+tbody {
+  font-size: .66rem;
+}
 </style>

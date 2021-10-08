@@ -74,7 +74,7 @@ export default {
 		parserHandler(e) {
 			if (e !== 'ТИЦЬ') {
 				this.parser = e
-				this.textAreaValue = ''
+        this.textAreaValue = ''
 			} else {
 				this.outputHandler()
 			}
@@ -87,10 +87,10 @@ export default {
           this.output = await this.$store.dispatch(this.selected, this.textAreaValue) + dateFilter(new Date, 'datetime').toString()
           let parserInfo = {
             agent: this.$store.getters.info.name,
-            type: 'Parser',
+            type: `Parser`,
             status: !this.output.toString().includes('Некоректний вибір') ? 'OK' : 'ERROR',
             date: dateFilter(new Date, 'datetime').toString(),
-            input: this.textAreaValue,
+            input: `${this.parser}: ${this.textAreaValue}`,
             output: this.output
           }
           await this.$store.dispatch('createOutput', parserInfo)
