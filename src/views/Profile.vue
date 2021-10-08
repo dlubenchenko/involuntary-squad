@@ -67,11 +67,11 @@ export default {
     name: '',
     img: null,
   }),
-  mounted() {
+  async mounted() {
     this.name = this.info.name
-    firebase.storage().ref('/1.jpg').getDownloadURL().then(imgUrl => {
-      this.img = imgUrl
-    })
+    // await firebase.storage().ref('/1.jpg').getDownloadURL().then(imgUrl => {
+    //   this.img = imgUrl
+    // })
   },
   computed: {
     ...mapGetters(['info'])
