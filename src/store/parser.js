@@ -364,31 +364,31 @@ export default {
 				.split('/')
 				.map((e) => e.trim())
 
+			console.log(acr)
 			let acrFop = value.split(acr[1])[2]
+			console.log(acrFop)
 
 			let acrSecondFop = acrFop
 				.replaceAll('¥', '/')
 				.replaceAll('\n', '')
 				.split('/')
 				.map((e) => e.trim())
+			console.log(acrSecondFop)
 
 			let al = acr[0].split(' ')[acr[0].split(' ').length - 1]
+			console.log(al)
 
 			let nameFop = acr
 				.filter((e) => e.includes('CA') || e.includes('CC') || e.includes('VI'))
 				.join('')
 				.replace(/\s{2,6}/gm, '')
 				.split(' ')
+			console.log(nameFop)
 
 			let fair = acr[3].split(' ')[acr[3].split(' ').length - 1]
 				? acr[3].split(' ')[acr[3].split(' ').length - 1]
 				: acr[3]
 
-			// console.log(value)
-			// console.log(acr)
-			// console.log(al)
-			// console.log(nameFop)
-			// console.log(acrSecondFop)
 			return `ACR/${al}/${acr[1]}/${acr[2]}/${fair}/${acr[4]}/ONE/${
 				nameFop[0]
 			} ${nameFop[1]} ${nameFop[2].slice(

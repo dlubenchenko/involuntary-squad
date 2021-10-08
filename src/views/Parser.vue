@@ -61,7 +61,7 @@ export default {
 			{ title: 'SkyUp', func: 'skyUp' },
 			{ title: 'TUI', func: 'tui' },
 			{ title: 'DOCS', func: 'docs' },
-			// { title: 'ACR', func: 'acrParse' },
+			{ title: 'ACR', func: 'acrParse' },
 		],
 		confirmButton: 'ТИЦЬ',
 		parser: '',
