@@ -58,7 +58,6 @@ export default {
     loading: true,
 	}),
 	async mounted() {
-		console.clear()
 		const id = { value: process.env.VUE_APP_TRANSLATES }
 		const reason = await this.$store.dispatch('fetchGoogle', id)
 		const temp = await this.$store.dispatch('formatGTable', reason.table.rows)
@@ -103,7 +102,7 @@ export default {
       await this.$store.dispatch('createOutput', info)
     },
     onCopy() {
-      console.log('Copy')
+      // console.log('Copy')
     }
 	},
   computed: {
@@ -114,7 +113,6 @@ export default {
                   Object.values(e).includes(this.selectedReason) &&
                   Object.values(e).includes(this.selectedLanguage)
           )
-          console.log(this.output)
           let translateInfo = {
             agent: this.$store.getters.info.name,
             type: 'Translates',
