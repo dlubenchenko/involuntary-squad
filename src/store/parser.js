@@ -394,15 +394,7 @@ export default {
 			} ${nameFop[1]} ${nameFop[2].slice(
 				0,
 				1
-			)}/1/A/F(вставити інвойс)/(F або D))/E
-        `
+			)}/1/A/F(вставити інвойс)/(F або D))/E`
 		},
-
-		// console.log(acrParse(a))
-		// console.log(acrParse(b))
-		// console.log(acrParse(c))
-		// console.log(acrParse(d))
-		// console.log(acrParse(e))
-		// console.log(acrParse(f))
 	},
 }
