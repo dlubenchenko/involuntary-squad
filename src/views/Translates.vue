@@ -27,6 +27,7 @@
 				</div>
         <div class="col-12 mt-4">
           <my-button
+              v-if="output"
               :item="'Copy'"
               v-clipboard:copy="translateOutput"
               v-clipboard:success="onCopy"
