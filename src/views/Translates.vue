@@ -25,6 +25,13 @@
             </template>
           </v-select>
 				</div>
+        <div class="col-12 mt-4">
+          <my-button
+              :item="'Copy'"
+              v-clipboard:copy="translateOutput"
+              v-clipboard:success="onCopy"
+          />
+        </div>
 			</div>
 			<div class="col-lg-8 col-md-12 translate-output">
 				<p class="output text-center mt-5">{{ translateOutput }}</p>
@@ -93,6 +100,9 @@ export default {
     },
     async outputHandler(info) {
       await this.$store.dispatch('createOutput', info)
+    },
+    onCopy() {
+      console.log('Copy')
     }
 	},
   computed: {
@@ -103,6 +113,7 @@ export default {
                   Object.values(e).includes(this.selectedReason) &&
                   Object.values(e).includes(this.selectedLanguage)
           )
+          console.log(this.output)
           let translateInfo = {
             agent: this.$store.getters.info.name,
             type: 'Translates',

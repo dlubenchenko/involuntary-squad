@@ -54,7 +54,7 @@ export default {
                     .database()
                     .ref(`/users/${currentUser}/info/${choice}`)
                     .push({date})
-                return {date, id: infoAll.key}
+                return {date}
             } catch (e) {
                 commit('setError', e)
                 throw e

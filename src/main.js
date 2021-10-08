@@ -9,6 +9,7 @@ import dateFilter from '@/filters/date.filter'
 import VueScrollTo from 'vue-scrollto'
 import components from '@/components/UI'
 import Vuelidate from 'vuelidate'
+import VueClipboard from 'vue-clipboard2'
 
 import firebase from "firebase/app";
 import 'firebase/auth'
@@ -18,7 +19,7 @@ import 'firebase/storage';
 
 Vue.component('v-select', vSelect)
 Vue.filter('date', dateFilter)
-Vue.use(Vuelidate).use(VueScrollTo)
+Vue.use(Vuelidate).use(VueScrollTo).use(VueClipboard)
 
 components.forEach((component) => {
 	Vue.component(component.name, component)
