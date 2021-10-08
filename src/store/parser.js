@@ -253,6 +253,7 @@ export default {
 			}
 		},
 
+		// parser docs
 		docs({ dispatch }, value) {
 			let amadeus,
 				sabre,
@@ -357,6 +358,7 @@ export default {
 			return totalString
 		},
 
+		// parser ACR
 		acrParse({ dispatch }, value) {
 			let acr = value
 				.replaceAll('¥', '/')
@@ -397,12 +399,5 @@ export default {
 			)}/1/A/F(вставити інвойс)/(F або D))/E
         `
 		},
-
-		// console.log(acrParse(a))
-		// console.log(acrParse(b))
-		// console.log(acrParse(c))
-		// console.log(acrParse(d))
-		// console.log(acrParse(e))
-		// console.log(acrParse(f))
 	},
 }
